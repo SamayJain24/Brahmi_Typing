@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brahmi Typing Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap">
 </head>
+
 <body>
     <div id="game-container">
         <h1>Brahmi Typing Practice</h1>
         <div id="score-display">Score: 0</div>
+
         <div id="game-area">
-            <img id="background" src="media\background\stars.jpg" alt="background">
+            <!-- Background video for the game area -->
+            <video autoplay loop muted playsinline id="background-video">
+                <source src="media/background/stars.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <!-- Game elements overlaying the video -->
         </div>
+
         <div id="input-container">
-            <input type="text" id="user-input" placeholder="Start typing Brahmi word..." autofocus />
+            <input type="text" id="user-input" placeholder="Start typing Brahmi words..." autofocus />
         </div>
+
         <div id="progress-bar">
             <div id="bar-inner"></div>
         </div>
     </div>
+
     <audio id="shoot-sound" src="media/sounds/plasma.ogg"></audio>
     <audio id="explosion-sound" src="media/sounds/explosion.ogg"></audio>
     <script src="script.js"></script>
 </body>
+
 </html>
