@@ -48,7 +48,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: fill; /* Ensures the video fills the area while maintaining aspect ratio */
+    object-fit: cover; /* Ensures the video fills the area while maintaining aspect ratio */
     z-index: -1; /* Sends the video to the background */
     pointer-events: none; /* Disables interaction with the video */
 }
