@@ -1,3 +1,4 @@
+/* Global reset */
 * {
     margin: 0;
     padding: 0;
@@ -6,70 +7,92 @@
 
 body {
     font-family: 'Nunito', sans-serif;
-    background-color: #101820FF;
+    background-color: #101820FF; /* Fallback color in case the image doesn't load */
+    background-image: url('media/background/background_image.jpg'); /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Keeps the image centered */
+    background-attachment: fixed; /* Keeps the background in place when scrolling */
     color: #FEE715FF;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     overflow: hidden;
 }
 
 #game-container {
     text-align: center;
-    width: 100%;
-    max-width: 1200px;
-    padding: 1rem;
 }
 
 h1 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    margin-top: clamp(20px, 4vh, 80px);
+    font-size: 2.5rem;
+    margin-top: 80px;
     margin-bottom: 20px;
-    color: #FFDD00;
+    color: #ca5e1a;
 }
 
 #game-area {
     position: relative;
-    width: 95%;
+    width: 80vw;
     height: 60vh;
-    background-color: #282C34;
-    border: 3px solid #66fcf1;
+    border: 3px solid #000000;
     margin: 20px auto;
     overflow: hidden;
     border-radius: 15px;
-    background-image: url('media/background/stars.jpg');
-    background-size: cover;
+    background-color: transparent; /* Set this to transparent as we are using a video */
 }
 
-#background {
+#background-video {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    opacity: 0.2;
+    object-fit: cover; /* Ensures the video fills the area while maintaining aspect ratio */
+    z-index: -1; /* Sends the video to the background */
+    pointer-events: none; /* Disables interaction with the video */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    #game-area {
+        width: 95vw;  /* Adjust the width for smaller screens */
+        height: 50vh; /* Adjust the height for smaller screens */
+        border-radius: 10px; /* Smaller border radius for better appearance on mobile */
+    }
+
+    #background-video {
+        object-fit:cover; /* Ensure the video scales well on mobile */
+    }
 }
 
 #score-display {
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-size: 1.8rem;
     margin-bottom: 10px;
+    color: #ca5e1a;
 }
+
+/* Additional game elements */
 
 .word {
     position: absolute;
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: #66fcf1;
+    font-size: 1.5rem;
+    color: #000000;
     animation: wordMove 7s linear forwards;
 }
 
 @keyframes wordMove {
-    from { top: 0; }
-    to { top: 90%; }
+    from {
+        top: 0;
+    }
+    to {
+        top: 90%;
+    }
 }
 
 .rocket {
-    width: clamp(8px, 2vw, 10px);
-    height: clamp(16px, 4vw, 20px);
+    width: 10px;
+    height: 20px;
     position: absolute;
     background-image: url('media/sprites/missle.png');
     background-size: contain;
@@ -78,14 +101,18 @@ h1 {
 }
 
 @keyframes rocketMove {
-    from { top: 90%; }
-    to { top: 0%; }
+    from {
+        top: 90%;
+    }
+    to {
+        top: 0%;
+    }
 }
 
 .explosion {
     position: absolute;
-    width: clamp(20px, 5vw, 30px);
-    height: clamp(20px, 5vw, 30px);
+    width: 30px;
+    height: 30px;
     background-image: url('media/sprites/explosion.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -105,28 +132,31 @@ h1 {
 
 #input-container {
     margin-top: 10px;
-    width: 100%;
-    padding: 0 1rem;
 }
 
 #user-input {
     padding: 15px;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    width: 100%;
-    max-width: 350px;
+    font-size: 1.3rem;
+    width: 350px;
     border-radius: 8px;
-    border: 2px solid #66fcf1;
-    background-color: #282C34;
-    color: #FEE715FF;
+    border: 2px solid #CD853F;
+    background-color:#8B2323;
+    color: #FAEBD7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
 }
 
 #user-input:focus {
+    border-color: #DAA520;
     outline: none;
-    border-color: #FEE715FF;
+    box-shadow: 0 2px 8px rgba(139, 35, 35, 0.3);
 }
 
+
+
 #progress-bar {
-    width: 95%;
+    width: 80%;
     height: 8px;
     background-color: #ddd;
     margin: 20px auto;
@@ -142,39 +172,14 @@ h1 {
     transition: width 0.3s ease;
 }
 
-/* Mobile-specific adjustments */
+/* Additional adjustments for mobile */
 @media screen and (max-width: 768px) {
-    #game-container {
-        padding: 0.5rem;
-    }
-    
     #game-area {
-        width: 98%;
-        height: 70vh;
-        margin: 10px auto;
-    }
-    
-    .word {
-        font-size: 1.2rem;
-    }
-    
-    #user-input {
-        padding: 12px;
-        font-size: 1rem;
-    }
-}
-
-/* Small screen adjustments */
-@media screen and (max-width: 480px) {
-    h1 {
-        margin-top: 10px;
-    }
-    
-    #game-area {
+        width: 100%;
         height: 60vh;
     }
-    
-    #user-input {
-        padding: 10px;
+
+    .falling-word {
+        font-size: 6vw;
     }
 }
